@@ -89,10 +89,15 @@
         Start by browsing the recipe list, or manage data through the admin dashboard.
       </p>
 
-      <div class="actions">
-        <a class="btn btn-primary" href="{% url 'recipes:recipe_list' %}">View Recipes</a>
-        <a class="btn btn-secondary" href="/admin/">Admin Panel</a>
-      </div>
+<div class="actions">
+  {% if user.is_authenticated %}
+    <a class="btn btn-primary" href="{% url 'recipes:recipe_list' %}">View Recipes</a>
+    <a class="btn btn-secondary" href="{% url 'logout' %}">Logout</a>
+  {% else %}
+    <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+    <a class="btn btn-secondary" href="/admin/">Admin Panel</a>
+  {% endif %}
+</div>
 
       <div class="footer">
         Tip: You can add new recipes and upload images from the admin panel.

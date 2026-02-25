@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Login</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#f6f1ea; color:#111827; }
+    .container { max-width: 520px; margin: 0 auto; padding: 48px 20px; }
+    .card { background:#fff; border-radius: 14px; padding: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #f3f4f6; }
+    h1 { margin: 0 0 12px 0; font-size: 26px; }
+    p { margin: 0 0 18px 0; color:#6b7280; line-height: 1.5; }
+    form { margin-top: 14px; }
+    label { display:block; font-weight: 700; margin: 12px 0 6px; }
+    input { width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid #e5e7eb; }
+    .btn { margin-top: 18px; width: 100%; padding: 12px 12px; border-radius: 10px; border: none; background:#111827; color:#fff; font-weight: 800; cursor: pointer; }
+    .btn:hover { opacity: 0.92; }
+    .links { margin-top: 14px; display:flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+    .link { color:#111827; text-decoration:none; font-weight: 700; }
+    .error { background:#fef2f2; border: 1px solid #fecaca; color:#991b1b; padding: 10px 12px; border-radius: 10px; margin-top: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>Login</h1>
+      <p>Sign in to access the recipe pages.</p>
+
+      <form method="post">
+        {% csrf_token %}
+        {{ form.non_field_errors }}
+
+        <label for="id_username">Username</label>
+        {{ form.username }}
+
+        <label for="id_password">Password</label>
+        {{ form.password }}
+
+        <button class="btn" type="submit">Log in</button>
+
+        {% if form.errors %}
+          <div class="error">Login failed. Double-check your username and password.</div>
+        {% endif %}
+      </form>
+
+      <div class="links">
+        <a class="link" href="{% url 'recipes:home' %}">Back home</a>
+        <a class="link" href="/admin/">Admin</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

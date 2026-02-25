@@ -24,10 +24,13 @@
 </head>
 <body>
   <div class="container">
-    <div class="topbar">
-      <a class="link" href="{% url 'recipes:recipe_list' %}">Back to Recipes</a>
-      <a class="link" href="/admin/">Admin</a>
-    </div>
+<div class="topbar">
+  <a class="link" href="{% url 'recipes:recipe_list' %}">Back to Recipes</a>
+  <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <a class="link" href="/admin/">Admin</a>
+    <a class="link" href="{% url 'logout' %}">Logout</a>
+  </div>
+</div>
 
     <div class="card">
       <div class="hero">
