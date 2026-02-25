@@ -1,44 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Recipe App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-            padding-top: 100px;
-        }
-
-        h1 {
-            color: #2c3e50;
-        }
-
-        p {
-            font-size: 18px;
-            color: #555;
-        }
-
-        .button {
-            margin-top: 20px;
-            padding: 10px 20px;
-            background-color: #2c3e50;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
-
-        .button:hover {
-            background-color: #34495e;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Recipe App</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f6f1ea;
+      color: #1f2937;
+    }
+    .container {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 48px 20px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 14px;
+      padding: 36px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+    h1 {
+      margin: 0 0 12px 0;
+      font-size: 40px;
+      letter-spacing: -0.5px;
+    }
+    p {
+      margin: 0 0 18px 0;
+      line-height: 1.6;
+      color: #4b5563;
+      font-size: 16px;
+    }
+    .actions {
+      margin-top: 22px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid #e5e7eb;
+    }
+    .btn-primary {
+      background: #111827;
+      color: #ffffff;
+      border-color: #111827;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-secondary {
+      background: #ffffff;
+      color: #111827;
+    }
+    .btn-secondary:hover { background: #f3f4f6; }
+    .tag {
+      display: inline-block;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .footer {
+      margin-top: 18px;
+      font-size: 12px;
+      color: #6b7280;
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
+    <div class="card">
+      <div class="tag">Recipe App</div>
+      <h1>Welcome</h1>
+      <p>
+        Create and explore recipes with ingredients, cooking time, and an automatically
+        calculated difficulty rating.
+      </p>
+      <p>
+        Start by browsing the recipe list, or manage data through the admin dashboard.
+      </p>
 
-    <h1>Welcome to the Recipe App</h1>
-    <p>Create, manage, and explore your favorite recipes.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="{% url 'recipes:recipe_list' %}">View Recipes</a>
+        <a class="btn btn-secondary" href="/admin/">Admin Panel</a>
+      </div>
 
-    <a href="/admin/" class="button">Go to Admin Panel</a>
-
+      <div class="footer">
+        Tip: You can add new recipes and upload images from the admin panel.
+      </div>
+    </div>
+  </div>
 </body>
 </html>
