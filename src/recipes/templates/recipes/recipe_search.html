@@ -1,108 +1,215 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Recipe Search</title>
-  <style>
-    body { margin:0; font-family: Arial, sans-serif; background:#f6f1ea; color:#111827; }
-    .container { max-width: 1100px; margin: 0 auto; padding: 36px 20px; }
-    .topbar { display:flex; justify-content: space-between; align-items:center; gap:12px; flex-wrap:wrap; }
-    h1 { margin:0; font-size: 28px; }
-    .link { text-decoration:none; font-weight:700; border:1px solid #e5e7eb; padding:10px 12px; border-radius:10px; background:#fff; }
-    .link:hover { background:#f3f4f6; }
-    .card { background:#fff; border-radius: 14px; padding: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border:1px solid #f3f4f6; margin-top: 16px; }
-    form { display:flex; gap: 10px; flex-wrap: wrap; align-items: end; }
-    label { display:block; font-size: 13px; color:#6b7280; margin-bottom: 6px; font-weight:700; }
-    input, select { padding: 10px 12px; border-radius: 10px; border:1px solid #e5e7eb; min-width: 240px; }
-    .checkwrap { display:flex; gap: 8px; align-items:center; padding: 10px 0; }
-    .btn { padding: 10px 14px; border-radius: 10px; border: none; background:#111827; color:#fff; font-weight: 800; cursor:pointer; }
-    .btn:hover { opacity: 0.92; }
-    .charts { display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; }
-    img { width: 100%; border-radius: 12px; border: 1px solid #f3f4f6; background: #fff; }
-    table { width: 100%; border-collapse: collapse; }
-    th, td { border: 1px solid #e5e7eb; padding: 10px; text-align: left; }
-    th { background: #f3f4f6; }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe Search</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f6f1ea;
+            color: #111827;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 36px 20px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+
+        .link {
+            text-decoration: none;
+            font-weight: 700;
+            border: 1px solid #e5e7eb;
+            padding: 10px 12px;
+            border-radius: 10px;
+            background: #fff;
+        }
+
+        .link:hover {
+            background: #f3f4f6;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 14px;
+            padding: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f3f4f6;
+            margin-top: 16px;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: end;
+        }
+
+        label {
+            display: block;
+            font-size: 13px;
+            color: #6b7280;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        input,
+        select {
+            padding: 10px 12px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            min-width: 240px;
+        }
+
+        .checkwrap {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border-radius: 10px;
+            border: none;
+            background: #111827;
+            color: #fff;
+            font-weight: 800;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            opacity: 0.92;
+        }
+
+        .charts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #f3f4f6;
+            background: #fff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid #e5e7eb;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #f3f4f6;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="topbar">
-      <h1>Search Recipes</h1>
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <a class="link" href="{% url 'recipes:home' %}">Home</a>
-        <a class="link" href="{% url 'recipes:recipe_list' %}">Recipes</a>
-        <form method="post" action="{% url 'logout' %}" style="display:inline; margin:0;">
-          {% csrf_token %}
-          <button class="link" type="submit" style="cursor:pointer;">Logout</button>
-        </form>
-      </div>
+    <div class="container">
+        <div class="topbar">
+            <h1>Search Recipes</h1>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+                <a class="link" href="{% url 'recipes:home' %}">Home</a>
+                <a class="link" href="{% url 'recipes:recipe_list' %}">Recipes</a>
+                <form method="post" action="{% url 'logout' %}" style="display:inline; margin:0;">
+                    {% csrf_token %}
+                    <button class="link" type="submit" style="cursor:pointer;">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card">
+            <form method="get">
+                <div>
+                    <label for="id_query">Name or Ingredient</label>
+                    {{ form.query }}
+                </div>
+
+                <div>
+                    <label for="id_difficulty">Difficulty</label>
+                    {{ form.difficulty }}
+                </div>
+
+                <div class="checkwrap">
+                    <label style="display:flex; align-items:center; gap:6px; margin:0; font-weight:700; color:#6b7280;">
+                        {{ form.show_all }}
+                        Show all
+                    </label>
+                </div>
+
+                <button class="btn" type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2 style="margin:0 0 10px 0;">Results</h2>
+            {% if table_html %}
+            {{ table_html|safe }}
+            <p style="margin-top:10px; color:#6b7280; font-size:12px;">
+                Tip: Click a recipe name to open its details page.
+            </p>
+            {% else %}
+            <p style="margin:0; color:#6b7280;">No results yet. Try a search, or check “Show all”.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h2 style="margin:0 0 10px 0;">Data Analysis</h2>
+            <div class="charts">
+                <div>
+                    <h3 style="margin:0 0 8px 0; font-size:16px;">Top Ingredients (Bar)</h3>
+                    {% if bar_chart %}
+                    <img src="data:image/png;base64,{{ bar_chart }}" alt="Bar chart">
+                    {% else %}
+                    <p style="color:#6b7280;">Not enough data for this chart yet.</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <h3 style="margin:0 0 8px 0; font-size:16px;">Difficulty Distribution (Pie)</h3>
+                    {% if pie_chart %}
+                    <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie chart">
+                    {% else %}
+                    <p style="color:#6b7280;">Not enough data for this chart yet.</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <h3 style="margin:0 0 8px 0; font-size:16px;">Recipes Over Time (Line)</h3>
+                    {% if line_chart %}
+                    <img src="data:image/png;base64,{{ line_chart }}" alt="Line chart">
+                    {% else %}
+                    <p style="color:#6b7280;">Not enough data for this chart yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div class="card">
-      <form method="get">
-        <div>
-          <label for="id_query">Name or Ingredient</label>
-          {{ form.query }}
-        </div>
-
-        <div>
-          <label for="id_difficulty">Difficulty</label>
-          {{ form.difficulty }}
-        </div>
-
-        <div class="checkwrap">
-          {{ form.show_all }}
-          <label for="id_show_all" style="margin:0;">Show all</label>
-        </div>
-
-        <button class="btn" type="submit">Search</button>
-      </form>
-    </div>
-
-    <div class="card">
-      <h2 style="margin:0 0 10px 0;">Results</h2>
-      {% if table_html %}
-        {{ table_html|safe }}
-        <p style="margin-top:10px; color:#6b7280; font-size:12px;">
-          Tip: Click a recipe name to open its details page.
-        </p>
-      {% else %}
-        <p style="margin:0; color:#6b7280;">No results yet. Try a search, or check “Show all”.</p>
-      {% endif %}
-    </div>
-
-    <div class="card">
-      <h2 style="margin:0 0 10px 0;">Data Analysis</h2>
-      <div class="charts">
-        <div>
-          <h3 style="margin:0 0 8px 0; font-size:16px;">Top Ingredients (Bar)</h3>
-          {% if bar_chart %}
-            <img src="data:image/png;base64,{{ bar_chart }}" alt="Bar chart">
-          {% else %}
-            <p style="color:#6b7280;">Not enough data for this chart yet.</p>
-          {% endif %}
-        </div>
-
-        <div>
-          <h3 style="margin:0 0 8px 0; font-size:16px;">Difficulty Distribution (Pie)</h3>
-          {% if pie_chart %}
-            <img src="data:image/png;base64,{{ pie_chart }}" alt="Pie chart">
-          {% else %}
-            <p style="color:#6b7280;">Not enough data for this chart yet.</p>
-          {% endif %}
-        </div>
-
-        <div>
-          <h3 style="margin:0 0 8px 0; font-size:16px;">Recipes Over Time (Line)</h3>
-          {% if line_chart %}
-            <img src="data:image/png;base64,{{ line_chart }}" alt="Line chart">
-          {% else %}
-            <p style="color:#6b7280;">Not enough data for this chart yet.</p>
-          {% endif %}
-        </div>
-      </div>
-    </div>
-  </div>
 </body>
+
 </html>
