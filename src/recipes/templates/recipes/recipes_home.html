@@ -1,118 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recipe App</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f6f1ea;
-      color: #1f2937;
-    }
-    .container {
-      max-width: 980px;
-      margin: 0 auto;
-      padding: 48px 20px;
-    }
-    .card {
-      background: #ffffff;
-      border-radius: 14px;
-      padding: 36px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-    h1 {
-      margin: 0 0 12px 0;
-      font-size: 40px;
-      letter-spacing: -0.5px;
-    }
-    p {
-      margin: 0 0 18px 0;
-      line-height: 1.6;
-      color: #4b5563;
-      font-size: 16px;
-    }
-    .actions {
-      margin-top: 22px;
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      align-items: center;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 16px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 600;
-      border: 1px solid #e5e7eb;
-      background: #ffffff;
-      color: #111827;
-      cursor: pointer;
-    }
-    .btn:hover { background: #f3f4f6; }
-    .btn-primary {
-      background: #111827;
-      color: #ffffff;
-      border-color: #111827;
-    }
-    .btn-primary:hover { opacity: 0.9; }
-    .tag {
-      display: inline-block;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: #fff7ed;
-      border: 1px solid #fed7aa;
-      color: #9a3412;
-      font-size: 12px;
-      font-weight: 700;
-      margin-bottom: 16px;
-    }
-    .footer {
-      margin-top: 18px;
-      font-size: 12px;
-      color: #6b7280;
-    }
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recipe App</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f6f1ea;
+            color: #1f2937;
+        }
 
-    /* Make form buttons look exactly like links */
-    form { margin: 0; display: inline; }
-    button.btn { border: 1px solid #e5e7eb; background: #ffffff; color: #111827; }
-    button.btn-primary { background: #111827; color: #ffffff; border-color: #111827; }
-  </style>
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 48px 20px;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 14px;
+            padding: 36px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        h1 {
+            margin: 0 0 12px 0;
+            font-size: 40px;
+            letter-spacing: -0.5px;
+        }
+
+        p {
+            margin: 0 0 18px 0;
+            line-height: 1.6;
+            color: #4b5563;
+            font-size: 16px;
+        }
+
+        .actions {
+            margin-top: 22px;
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 16px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            color: #111827;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background: #f3f4f6;
+        }
+
+        .btn-primary {
+            background: #111827;
+            color: #ffffff;
+            border-color: #111827;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 10px;
+            border-radius: 999px;
+            background: #fff7ed;
+            border: 1px solid #fed7aa;
+            color: #9a3412;
+            font-size: 12px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer {
+            margin-top: 18px;
+            font-size: 12px;
+            color: #6b7280;
+        }
+
+        /* Make form buttons look exactly like links */
+        form {
+            margin: 0;
+            display: inline;
+        }
+
+        button.btn {
+            border: 1px solid #e5e7eb;
+            background: #ffffff;
+            color: #111827;
+        }
+
+        button.btn-primary {
+            background: #111827;
+            color: #ffffff;
+            border-color: #111827;
+        }
+    </style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="tag">Recipe App</div>
-      <h1>Welcome</h1>
-      <p>
-        Create and explore recipes with ingredients, cooking time, and an automatically
-        calculated difficulty rating.
-      </p>
-      <p>
-        Browse recipes, search the database, and view basic charts from the data.
-      </p>
+    <div class="container">
+        <div class="card">
+            <div class="tag">Recipe App</div>
+            <h1>Welcome</h1>
+            <p>
+                Create and explore recipes with ingredients, cooking time, and an automatically
+                calculated difficulty rating.
+            </p>
+            <p>
+                Browse recipes, search the database, and view basic charts from the data.
+            </p>
 
-      <div class="actions">
-        {% if user.is_authenticated %}
-          <a class="btn btn-primary" href="{% url 'recipes:recipe_list' %}">View Recipes</a>
-          <a class="btn" href="{% url 'recipes:recipe_search' %}">Search + Charts</a>
+            <div class="actions">
+                {% if user.is_authenticated %}
+                <a class="btn btn-primary" href="{% url 'recipes:recipe_list' %}">View Recipes</a>
+                <a class="btn" href="{% url 'recipes:recipe_search' %}">Search + Charts</a>
+                <a class="btn" href="{% url 'recipes:add_recipe' %}">Add Recipe</a>
+                <a class="btn" href="{% url 'recipes:about' %}">About Me</a>
 
-          <form method="post" action="{% url 'logout' %}">
-            {% csrf_token %}
-            <button class="btn" type="submit">Logout</button>
-          </form>
-        {% else %}
-          <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
-          <a class="btn" href="/admin/">Admin Panel</a>
-        {% endif %}
-      </div>
+                <form method="post" action="{% url 'logout' %}">
+                    {% csrf_token %}
+                    <button class="btn" type="submit">Logout</button>
+                </form>
+                {% else %}
+                <a class="btn btn-primary" href="{% url 'login' %}">Login</a>
+                <a class="btn" href="/admin/">Admin Panel</a>
+                <a class="btn" href="{% url 'recipes:about' %}">About Me</a>
+                {% endif %}
+            </div>
 
-      <div class="footer">
-        Tip: Log in to access recipe pages and search.
-      </div>
+            <div class="footer">
+                Tip: Log in to access recipe pages and search.
+            </div>
+        </div>
     </div>
-  </div>
 </body>
+
 </html>

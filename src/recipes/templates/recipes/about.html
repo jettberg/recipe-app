@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Me</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#f6f1ea; color:#1f2937; }
+    .container { max-width: 980px; margin:0 auto; padding: 48px 20px; }
+    .card { background:#fff; border-radius:14px; padding:36px; box-shadow:0 10px 30px rgba(0,0,0,0.08); }
+    h1 { margin:0 0 12px 0; font-size: 34px; }
+    p { margin:0 0 14px 0; line-height:1.6; color:#4b5563; }
+    .actions { margin-top: 18px; display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .btn { display:inline-block; padding:12px 16px; border-radius:10px; text-decoration:none; font-weight:600;
+      border:1px solid #e5e7eb; background:#fff; color:#111827; cursor:pointer; }
+    .btn:hover { background:#f3f4f6; }
+    .btn-primary { background:#111827; color:#fff; border-color:#111827; }
+    .btn-primary:hover { opacity:0.9; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <h1>About Me</h1>
+      <p>
+        Hi, My name is Jett!  I built this Recipe app as Specialization in python for my full-stack web development program through Career Foundry.
+        It uses Django, authentication, database models, search, and basic charts.
+      </p>
+
+      <p>
+        This project is meant to show full-stack Django skills: building models, views/templates, login protection,
+        forms, and data visualization.
+      </p>
+
+      <div class="actions">
+        <a class="btn btn-primary" href="{% url 'recipes:home' %}">Home</a>
+        <a class="btn" href="{% url 'recipes:recipe_list' %}">View Recipes</a>
+        <a class="btn" href="{% url 'recipes:recipe_search' %}">Search + Charts</a>
+      </div>
+
+      <div style="margin-top:18px;">
+        <p><strong>GitHub:</strong> <a href="https://github.com/jettberg" target="_blank" rel="noopener">github.com/jettberg</a></p>
+        <p><strong>Recipe App Repo:</strong> <a href="https://github.com/jettberg/recipe-app" target="_blank" rel="noopener">github.com/jettberg/recipe-app</a></p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

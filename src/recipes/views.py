@@ -1,9 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.utils.safestring import mark_safe
 
 from .models import Recipe, Ingredient
-from .forms import RecipeSearchForm
+from .forms import RecipeSearchForm, RecipeForm
 
 import pandas as pd
 import matplotlib
@@ -27,6 +27,23 @@ def _plot_to_base64() -> str:
 
 def home(request):
     return render(request, "recipes/recipes_home.html")
+
+
+def about(request):
+    return render(request, "recipes/about.html")
+
+
+@login_required
+def add_recipe(request):
+    if request.method == "POST":
+        form = RecipeForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save(created_by=request.user)
+            return redirect("recipes:recipe_list")
+    else:
+        form = RecipeForm()
+
+    return render(request, "recipes/add_recipe.html", {"form": form})
 
 
 @login_required
@@ -70,12 +87,7 @@ def recipe_search(request):
 
         if not show_all:
             if query:
-                # Partial matching using icontains
-                qs = qs.filter(
-                    name__icontains=query
-                ) | qs.filter(
-                    ingredients__name__icontains=query
-                )
+                qs = qs.filter(name__icontains=query) | qs.filter(ingredients__name__icontains=query)
                 qs = qs.distinct()
 
             if difficulty:
@@ -110,14 +122,6 @@ def recipe_search(request):
     all_recipes = Recipe.objects.all()
 
     # Bar chart: top ingredients
-    ingredient_counts = (
-        Ingredient.objects
-        .filter(recipes__in=all_recipes)
-        .distinct()
-        .values("name")
-    )
-
-    # Count recipes per ingredient (simple + clear)
     ing_labels = []
     ing_values = []
     for ing in Ingredient.objects.all().order_by("name"):
@@ -128,7 +132,6 @@ def recipe_search(request):
 
     bar_chart = None
     if ing_values:
-        # Take top 8 to avoid messy chart
         top = sorted(zip(ing_labels, ing_values), key=lambda x: x[1], reverse=True)[:8]
         labels = [x[0] for x in top]
         values = [x[1] for x in top]
@@ -158,14 +161,12 @@ def recipe_search(request):
         pie_chart = _plot_to_base64()
 
     # Line chart: recipes created per day
-    dates = []
-    for r in all_recipes:
-        dates.append(r.created_at.date())
+    dates = [r.created_at.date() for r in all_recipes]
 
     line_chart = None
     if dates:
         date_series = pd.Series(dates)
-        grouped = date_series.value_counts().sort_index()  # index=date, value=count
+        grouped = date_series.value_counts().sort_index()
 
         plt.figure()
         plt.plot(grouped.index.astype(str), grouped.values, marker="o")
