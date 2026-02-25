@@ -1,103 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ recipe.name }}</title>
     <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f6f1ea;
-            color: #111827;
-        }
+        body { margin: 0; font-family: Arial, sans-serif; background: #f6f1ea; color: #111827; }
+        .container { max-width: 980px; margin: 0 auto; padding: 36px 20px; }
+        .topbar { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .link { text-decoration: none; font-weight: 700; border: 1px solid #e5e7eb; padding: 10px 12px; border-radius: 10px; background: #fff; }
+        .link:hover { background: #f3f4f6; }
+        button.link { cursor:pointer; }
 
-        .container {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 36px 20px;
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .link {
-            text-decoration: none;
-            font-weight: 700;
-            border: 1px solid #e5e7eb;
-            padding: 10px 12px;
-            border-radius: 10px;
-            background: #fff;
-        }
-
-        .link:hover {
-            background: #f3f4f6;
-        }
-
-        .card {
-            background: #fff;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            border: 1px solid #f3f4f6;
-        }
-
-        .hero {
-            width: 100%;
-            height: 320px;
-            background: #f3f4f6;
-        }
-
-        .hero img {
-            width: 100%;
-            height: 320px;
-            object-fit: cover;
-            display: block;
-        }
-
-        .content {
-            padding: 18px;
-        }
-
-        h1 {
-            margin: 0 0 10px 0;
-            font-size: 30px;
-        }
-
-        .meta {
-            color: #6b7280;
-            font-size: 14px;
-            margin-bottom: 12px;
-            line-height: 1.6;
-        }
-
-        .section-title {
-            margin: 16px 0 8px 0;
-            font-size: 16px;
-        }
-
-        ul {
-            margin: 0;
-            padding-left: 18px;
-        }
-
-        p {
-            margin: 0;
-            line-height: 1.6;
-            color: #374151;
-        }
-
-        .small {
-            font-size: 12px;
-            color: #6b7280;
-            margin-top: 14px;
-        }
+        .card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); border: 1px solid #f3f4f6; }
+        .hero { width: 100%; height: 320px; background: #f3f4f6; }
+        .hero img { width: 100%; height: 320px; object-fit: cover; display: block; }
+        .content { padding: 18px; }
+        h1 { margin: 0 0 10px 0; font-size: 30px; }
+        .meta { color: #6b7280; font-size: 14px; margin-bottom: 12px; line-height: 1.6; }
+        .section-title { margin: 16px 0 8px 0; font-size: 16px; }
+        ul { margin: 0; padding-left: 18px; }
+        p { margin: 0; line-height: 1.6; color: #374151; }
+        .small { font-size: 12px; color: #6b7280; margin-top: 14px; }
     </style>
 </head>
 
@@ -109,15 +34,17 @@
                 <a class="link" href="/admin/">Admin</a>
                 <form method="post" action="{% url 'logout' %}" style="display:inline;">
                     {% csrf_token %}
-                    <button class="link" type="submit" style="cursor:pointer;">Logout</button>
+                    <button class="link" type="submit">Logout</button>
                 </form>
             </div>
         </div>
 
         <div class="card">
             <div class="hero">
-                {% if recipe.image %}
-                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+                {% if recipe.static_image %}
+                    <img src="{% static 'recipes/images/' %}{{ recipe.static_image }}" alt="{{ recipe.name }}">
+                {% elif recipe.image %}
+                    <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
                 {% endif %}
             </div>
 
@@ -152,5 +79,4 @@
         </div>
     </div>
 </body>
-
 </html>

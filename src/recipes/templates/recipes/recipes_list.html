@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
     }
     .link:hover { background: #f3f4f6; }
     form { margin: 0; display: inline; }
-    button.link { border: 1px solid #e5e7eb; background: #fff; color: inherit; }
+    button.link { border: 1px solid #e5e7eb; background: #fff; color: inherit; cursor:pointer; }
 
     .grid { margin-top: 18px; display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
     .card { background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.08); text-decoration: none; border: 1px solid #f3f4f6; }
@@ -54,7 +55,9 @@
       {% for recipe in recipes %}
         <a class="card" href="{% url 'recipes:recipe_detail' recipe.pk %}">
           <div class="thumb">
-            {% if recipe.image %}
+            {% if recipe.static_image %}
+              <img src="{% static 'recipes/images/' %}{{ recipe.static_image }}" alt="{{ recipe.name }}">
+            {% elif recipe.image %}
               <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
             {% else %}
               No image

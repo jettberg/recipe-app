@@ -11,7 +11,17 @@ class Ingredient(models.Model):
 
 class Recipe(models.Model):
     name = models.CharField(max_length=200)
+
+    # Keep ImageField if you want, but it won't work on Heroku without cloud storage
     image = models.ImageField(upload_to="recipe_images/", blank=True, null=True)
+
+    # NEW: filename for images stored in /static/recipes/images/
+    static_image = models.CharField(
+        max_length=200,
+        blank=True,
+        help_text="Example: tomato_soup.jpg (stored in static/recipes/images/)"
+    )
+
     description = models.TextField(blank=True)
     cooking_time = models.PositiveIntegerField()
     difficulty = models.CharField(max_length=20, blank=True)
@@ -32,9 +42,7 @@ class Recipe(models.Model):
             return "Hard"
 
     def save(self, *args, **kwargs):
-        # First save to ensure the object has an ID before M2M is used
         super().save(*args, **kwargs)
-        # Then calculate difficulty based on current ingredients
         new_diff = self.calculate_difficulty()
         if self.difficulty != new_diff:
             self.difficulty = new_diff
